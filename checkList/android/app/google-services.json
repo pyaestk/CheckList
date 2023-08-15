@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1091489881940",
+    "project_id": "login-test-fa596",
+    "storage_bucket": "login-test-fa596.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1091489881940:android:39e7c52016aa038f69b2c1",
+        "android_client_info": {
+          "package_name": "com.example.to_do_list"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1091489881940-nhacpjhm4l6698dl1qab3c79fu9u1k7e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBU4PH35y6hjrnJ3XNKZvvO_T3hyDVNr-c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1091489881940-nhacpjhm4l6698dl1qab3c79fu9u1k7e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

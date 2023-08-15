@@ -1,0 +1,257 @@
+@startuml
+set namespaceSeparator ::
+
+class "checkList::api::FirebaseApi.dart::FirebaseApi" {
+  {static} +Future<String> createTodo()
+  {static} +Stream<List<Todo>> readTodos()
+  {static} +Future<dynamic> updateTodo()
+  {static} +Future<dynamic> deleteTodo()
+}
+
+class "checkList::main.dart::MyApp" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "checkList::main.dart::MyApp"
+
+class "checkList::screens::aboutus_screen.dart::AboutUs" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "checkList::screens::aboutus_screen.dart::AboutUs"
+
+class "checkList::screens::donelists.dart::PurchasedLists" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "checkList::screens::donelists.dart::PurchasedLists"
+
+class "checkList::screens::donelists.dart::DoneLists" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "checkList::screens::donelists.dart::DoneLists"
+
+class "checkList::screens::editTodo.dart::EditTodo" {
+  +Todo todo
+  +State<EditTodo> createState()
+}
+
+"checkList::screens::editTodo.dart::EditTodo" o-- "checkList::todologic::todo.dart::Todo"
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "checkList::screens::editTodo.dart::EditTodo"
+
+class "checkList::screens::editTodo.dart::_EditTodoState" {
+  +String title
+  +String description
+  +String price
+  +String shop
+  -GlobalKey<FormState> _formKey
+  +void initState()
+  +Widget build()
+  +void saveTodo()
+}
+
+"checkList::screens::editTodo.dart::_EditTodoState" o-- "flutter::src::widgets::framework.dart::GlobalKey<FormState>"
+"flutter::src::widgets::framework.dart::State" <|-- "checkList::screens::editTodo.dart::_EditTodoState"
+
+class "checkList::screens::home.dart::HomeScreen" {
+  +State<HomeScreen> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "checkList::screens::home.dart::HomeScreen"
+
+class "checkList::screens::home.dart::_HomeScreenState" {
+  +Widget build()
+  +Widget buildText()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "checkList::screens::home.dart::_HomeScreenState"
+
+class "checkList::screens::login.dart::LoginScreen" {
+  +State<LoginScreen> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "checkList::screens::login.dart::LoginScreen"
+
+class "checkList::screens::login.dart::_LoginScreenState" {
+  -TextEditingController _emailTextController
+  -TextEditingController _passwordTextController
+  +TextFieldFactory factory
+  +Widget build()
+}
+
+"checkList::screens::login.dart::_LoginScreenState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"checkList::screens::login.dart::_LoginScreenState" o-- "checkList::widgets::reuseable_widget.dart::TextFieldFactory"
+"flutter::src::widgets::framework.dart::State" <|-- "checkList::screens::login.dart::_LoginScreenState"
+
+class "checkList::screens::sidebar.dart::Navbar" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "checkList::screens::sidebar.dart::Navbar"
+
+class "checkList::screens::signup.dart::SignUpScreen" {
+  +State<SignUpScreen> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "checkList::screens::signup.dart::SignUpScreen"
+
+class "checkList::screens::signup.dart::_SignUpScreenState" {
+  -TextEditingController _passwordTextController
+  -TextEditingController _emailTextController
+  -TextEditingController _userNameTextController
+  +TextFieldFactory factory
+  +Widget build()
+}
+
+"checkList::screens::signup.dart::_SignUpScreenState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"checkList::screens::signup.dart::_SignUpScreenState" o-- "checkList::widgets::reuseable_widget.dart::TextFieldFactory"
+"flutter::src::widgets::framework.dart::State" <|-- "checkList::screens::signup.dart::_SignUpScreenState"
+
+class "checkList::screens::todolistDialog.dart::tododialog" {
+  +State<tododialog> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "checkList::screens::todolistDialog.dart::tododialog"
+
+class "checkList::screens::todolistDialog.dart::_tododialogState" {
+  -GlobalKey<FormState> _formKey
+  +String title
+  +String description
+  +String price
+  +String shop
+  +Widget build()
+  +void addTodo()
+}
+
+"checkList::screens::todolistDialog.dart::_tododialogState" o-- "flutter::src::widgets::framework.dart::GlobalKey<FormState>"
+"flutter::src::widgets::framework.dart::State" <|-- "checkList::screens::todolistDialog.dart::_tododialogState"
+
+class "checkList::todologic::todo.dart::TodoField" {
+  {static} +String createdTime
+}
+
+class "checkList::todologic::todo.dart::Todo" {
+  +DateTime createdTime
+  +String title
+  +String id
+  +String price
+  +String shop
+  +String description
+  +bool isDone
+  {static} +Todo fromJson()
+  +Map<String, dynamic> toJson()
+}
+
+class "checkList::todologic::todo.dart::DateTimeUtils" {
+  {static} +DateTime? toDateTime()
+  {static} +dynamic fromDateTimeToJson()
+  {static} +StreamTransformer<QuerySnapshot<Map<String, dynamic>>, List<T>> transformer()
+}
+
+class "checkList::todologic::todolistwidget.dart::ToDoWidget" {
+  +Todo todo
+  +Widget build()
+  +void deleteTodo()
+  +void editTodo()
+}
+
+"checkList::todologic::todolistwidget.dart::ToDoWidget" o-- "checkList::todologic::todo.dart::Todo"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "checkList::todologic::todolistwidget.dart::ToDoWidget"
+
+abstract class "checkList::todologic::todolistwidget.dart::TodoComponent" {
+  +void delete()
+  +void edit()
+}
+
+abstract class "checkList::todologic::todosprovider.dart::TodoSubject" {
+  +void attach()
+  +void detach()
+  +void notify()
+}
+
+class "checkList::todologic::todosprovider.dart::TodosProvider" {
+  -List<Todo> _todos
+  -List<TodoObserver> _observers
+  +List<Todo> todos
+  +List<Todo> donetodos
+  +void setTodos()
+  +void addTodo()
+  +void deleteTodo()
+  +bool toggleTodoStatus()
+  +void updateTodo()
+  +void attach()
+  +void detach()
+  +void notify()
+}
+
+"flutter::src::foundation::change_notifier.dart::ChangeNotifier" <|-- "checkList::todologic::todosprovider.dart::TodosProvider"
+"checkList::todologic::todosprovider.dart::TodoSubject" <|-- "checkList::todologic::todosprovider.dart::TodosProvider"
+
+abstract class "checkList::todologic::todosprovider.dart::TodoObserver" {
+  +void update()
+}
+
+class "checkList::todologic::todosprovider.dart::TodoWidget" {
+  +TodosProvider subject
+  +void update()
+}
+
+"checkList::todologic::todosprovider.dart::TodoWidget" o-- "checkList::todologic::todosprovider.dart::TodosProvider"
+"checkList::todologic::todosprovider.dart::TodoObserver" <|-- "checkList::todologic::todosprovider.dart::TodoWidget"
+
+abstract class "checkList::todologic::todoWidget.dart::TitleDescComponent" {
+  +Widget buildTitleDescEtc()
+}
+
+class "checkList::todologic::todoWidget.dart::TodoFormWidget" {
+  +String title
+  +String description
+  +String shop
+  +String price
+  +void Function(String) onChangedTitle
+  +void Function(String) onChangedDescription
+  +void Function(String) onChangedShop
+  +void Function(String) onChangedPrice
+  +void Function() onSavedTodo
+  +Widget build()
+  +Widget buildTitleDescEtc()
+  +Widget buildButton()
+}
+
+"checkList::todologic::todoWidget.dart::TodoFormWidget" o-- "flutter::src::foundation::basic_types.dart::void Function(String)"
+"checkList::todologic::todoWidget.dart::TodoFormWidget" o-- "dart::ui::void Function()"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "checkList::todologic::todoWidget.dart::TodoFormWidget"
+"checkList::todologic::todoWidget.dart::TitleDescComponent" <|-- "checkList::todologic::todoWidget.dart::TodoFormWidget"
+
+class "checkList::todologic::todoWidget.dart::PaddingDecorator" {
+  +TitleDescComponent component
+  +double padding
+  +Widget buildTitleDescEtc()
+}
+
+"checkList::todologic::todoWidget.dart::PaddingDecorator" o-- "checkList::todologic::todoWidget.dart::TitleDescComponent"
+"checkList::todologic::todoWidget.dart::TitleDescComponent" <|-- "checkList::todologic::todoWidget.dart::PaddingDecorator"
+
+class "checkList::utils::auth_page.dart::AuthPage" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "checkList::utils::auth_page.dart::AuthPage"
+
+class "checkList::utils::auth_page.dart::UserManagement" {
+  +dynamic storeNewUser()
+}
+
+abstract class "checkList::widgets::reuseable_widget.dart::TextFieldFactory" {
+  +TextFormField createTextField()
+}
+
+class "checkList::widgets::reuseable_widget.dart::ReusableTextFieldFactory" {
+  +TextFormField createTextField()
+}
+
+"checkList::widgets::reuseable_widget.dart::TextFieldFactory" <|-- "checkList::widgets::reuseable_widget.dart::ReusableTextFieldFactory"
+
+
+@enduml
